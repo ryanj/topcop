@@ -6,10 +6,38 @@ $(document).ready(function() {
   var layer = new L.StamenTileLayer("toner");
   
   var map = new L.Map("map", {
-      center: new L.LatLng(37.7, -122.4),
+      center: new L.LatLng(37.8052612, -122.2719463),
       zoom: 12
   });
   map.addLayer(layer);
+
+  // add geolocation
+  map.on('locationfound', onLocationFound);
+  map.on('locationerror', onLocationError);
+
+  map.locateAndSetView();
+
+  function onLocationFound(e) {
+      var radius = e.accuracy / 2;
+
+      var uMarker = new L.Marker(e.latlng);
+      map.addLayer(uMarker);
+      uMarker.bindPopup("U-R-Here!").openPopup();
+
+      var uCircle = new L.Circle(e.latlng, radius);
+      map.addLayer(uCircle);
+      uCircle.bindPopup("You are within " + radius + " meters from this point")
+      
+
+  }
+
+
+  function onLocationError(e) {
+      alert(e.message);
+  }
+
+
+
 
 });
 

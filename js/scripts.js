@@ -9,6 +9,7 @@
 	  var nextPage = $(e.target.hash);
 	  $("#pages .current").removeClass("current");
 	  nextPage.addClass("current");
+
 	});
 
 })();
